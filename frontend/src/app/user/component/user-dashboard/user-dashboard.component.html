@@ -1,0 +1,116 @@
+<div >
+
+  <div id="nav-section">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary shadow">
+      <div class="container-fluid">
+        <a class="navbar-brand" >H.O.P.E</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link">User Dashboard</a>
+            </li>
+
+            <li class="nav-item" data-bs-toggle="modal" data-bs-target="#staticBackdrop1" style="cursor: pointer;">
+              <a class="nav-link">Donate</a>
+            </li>
+          </ul>
+          <form class="d-flex" role="search">
+            <button class="btn btn-outline-dark" type="submit" (click)="logout()">Logout</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <div id="content-section">
+    <h1 class="display-2 mt-3 ms-2">Welcome {{firstName}},</h1>
+
+    <!-- cards section -->
+    <div class="row my-2 text-center" >
+      <div class="col-md-3 my-2">
+        <div class="card mx-auto shadow" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title">Pending Requests</h5>
+            <p class="card-text">{{pendingRequests.length}}</p>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 my-2">
+        <div class="card mx-auto shadow" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title">Total Requests</h5>
+            <p class="card-text">{{processedRequests.length + pendingRequests.length}}</p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- pending request section -->
+    <app-pending-donations-table *ngIf="pendingRequests.length > 0"></app-pending-donations-table>
+
+    <!-- previous donations -->
+    <app-previous-donations-table *ngIf="processedRequests.length > 0"></app-previous-donations-table>
+  </div>
+
+    <!-- Modal -->
+  <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="overflow-x: hidden;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-dark text-white">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Donate food</h1>
+          <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="newDonationReq" class="bg-white p-3">
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Total servings</label>
+              <input type="text" class="form-control" id="noOfPeople" aria-describedby="emailHelp" formControlName="noOfPeople">
+              <div *ngIf="newDonationReq.get('noOfPeople')?.invalid && (newDonationReq.get('noOfPeople')?.dirty || newDonationReq.get('noOfPeople')?.touched)" class="text-danger">
+                This is required field
+              </div>
+            </div>
+            <div class="my-3">
+              <label for="exampleInputEmail1" class="form-label">Hours after preparation</label>
+              <input type="text" class="form-control" id="noOfHoursAfterPreparation" aria-describedby="emailHelp" formControlName="noOfHoursAfterPreparation">
+              <div *ngIf="newDonationReq.get('noOfHoursAfterPreparation')?.invalid && (newDonationReq.get('noOfHoursAfterPreparation')?.dirty || newDonationReq.get('noOfHoursAfterPreparation')?.touched)" class="text-danger">
+                This is required field
+              </div>
+            </div>
+            <div class="my-3">
+              <label for="address" class="form-label">Address</label>
+              <input type="text" class="form-control" id="address" aria-describedby="address" formControlName="address">
+              <div *ngIf="newDonationReq.get('address')?.invalid && (newDonationReq.get('address')?.dirty || newDonationReq.get('address')?.touched)" class="text-danger">
+                This is required field
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputcomment1" class="form-label" >Comment</label>
+              <div class="input-group">
+              <input type='text' class="form-control" id="comment" formControlName="comment">
+            </div>
+              <div *ngIf="newDonationReq.get('comment')?.invalid && (newDonationReq.get('comment')?.dirty || newDonationReq.get('comment')?.touched)" class="text-danger">
+                This is required field
+              </div>
+            </div>
+
+            <div class="">
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" >Cancel</button>
+                <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal" [disabled]="newDonationReq.invalid" (click)="newDonationRequest()">Donate</button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+

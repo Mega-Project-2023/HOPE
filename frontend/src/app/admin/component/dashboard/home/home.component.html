@@ -1,0 +1,107 @@
+<div style="width: 100%;">
+  <h1 class="display-2 mt-3 ms-2">Welcome Admin ,</h1>
+  <div class="row mt-2 text-center" >
+    <div class="col-md-3 my-2 px-4" style="cursor: pointer;">
+      <div class="card mx-auto text-white bg-dark" style="width: 18rem;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        <div class="card-body">
+          <h5 class="card-title">Add Volunteer</h5>
+          <p class="card-text">+</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 my-2">
+      <div class="card mx-auto shadow" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Total Volunteers</h5>
+          <p class="card-text">{{volunteerList.length}}</p>
+
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 my-2">
+      <div class="card mx-auto shadow" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Total Users</h5>
+          <p class="card-text">{{userList.length}}</p>
+
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 my-2">
+      <div class="card mx-auto shadow" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Total Orders</h5>
+          <p class="card-text">{{totalOrders}}</p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 my-3 px-4">
+
+      <app-volunteer-table [volunteerList] = "volunteerList"></app-volunteer-table>
+    </div>
+    <div class="col-md-6 my-3 px-4">
+      <app-user-table [userList] = "userList"></app-user-table>
+    </div>
+  </div>
+
+  <!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="overflow-x: hidden;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-dark text-white">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Register volunteer</h1>
+        <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="volunteerRegisterData" class="bg-white p-3">
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">First Name </label>
+            <input type="text" class="form-control" id="firstName" aria-describedby="emailHelp" formControlName="firstName">
+            <div *ngIf="volunteerRegisterData.get('firstName')?.invalid && (volunteerRegisterData.get('firstName')?.dirty || volunteerRegisterData.get('firstName')?.touched)" class="text-danger">
+              This is required field
+            </div>
+          </div>
+          <div class="my-3">
+            <label for="exampleInputEmail1" class="form-label">Last Name </label>
+            <input type="text" class="form-control" id="lastName" aria-describedby="emailHelp" formControlName="lastName">
+            <div *ngIf="volunteerRegisterData.get('lastName')?.invalid && (volunteerRegisterData.get('lastName')?.dirty || volunteerRegisterData.get('lastName')?.touched)" class="text-danger">
+              This is required field
+            </div>
+          </div>
+          <div class="my-3">
+            <label for="exampleInputEmail1" class="form-label">Username (Email)</label>
+            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" formControlName="email">
+            <div *ngIf="volunteerRegisterData.get('email')?.invalid && (volunteerRegisterData.get('email')?.dirty || volunteerRegisterData.get('email')?.touched)" class="text-danger">
+              This is required field
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label" >Password</label>
+            <div class="input-group">
+            <input type='password' class="form-control" id="password" formControlName="password">
+          </div>
+            <div *ngIf="volunteerRegisterData.get('password')?.invalid && (volunteerRegisterData.get('password')?.dirty || volunteerRegisterData.get('password')?.touched)" class="text-danger">
+              This is required field
+            </div>
+          </div>
+
+          <div class="">
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" >Cancel</button>
+              <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal" [disabled]="volunteerRegisterData.invalid" (click)="volunteerRegister()">Register</button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</div>
+
+
